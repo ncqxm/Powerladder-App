@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, ChevronLeft, Building2, Briefcase } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -35,22 +36,44 @@ export default function ContextPage() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+    <div>
+      <div className="container mx-auto px-4 py-12 md:py-16 max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="section-header mb-4">Start with your business</h1>
-          <p className="text-base text-muted-foreground mb-10 mt-6">
-            Tell us what kind of business you're working on.
-          </p>
+          {/* Back */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/canvas")}
+            className="text-muted-foreground mb-6 -ml-2"
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" /> Back
+          </Button>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div>
-              <label className="text-sm font-semibold text-foreground mb-2 block">
-                Industry
-              </label>
+          {/* Header */}
+          <div className="text-center mb-10">
+            <span className="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
+              Step 1 of 2
+            </span>
+            <h1 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+              Select Your Business Context
+            </h1>
+            <p className="text-muted-foreground max-w-md mx-auto">
+              Tell us your industry and use case so we can generate the right Business Play for you.
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="space-y-6">
+            <div className="card-glass">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Building2 className="h-4 w-4 text-primary" />
+                </div>
+                <label className="text-sm font-bold text-foreground">Industry</label>
+              </div>
               <Select
                 value={industry}
                 onValueChange={(val) => {
@@ -58,8 +81,8 @@ export default function ContextPage() {
                   setUseCase("");
                 }}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select industry" />
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="Select your industry" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.keys(INDUSTRIES).map((ind) => (
@@ -71,17 +94,20 @@ export default function ContextPage() {
               </Select>
             </div>
 
-            <div>
-              <label className="text-sm font-semibold text-foreground mb-2 block">
-                Business Use Case
-              </label>
+            <div className="card-glass">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Briefcase className="h-4 w-4 text-primary" />
+                </div>
+                <label className="text-sm font-bold text-foreground">Business Use Case</label>
+              </div>
               <Select
                 value={useCase}
                 onValueChange={setUseCase}
                 disabled={!industry}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select use case" />
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder={industry ? "Select use case" : "Choose an industry first"} />
                 </SelectTrigger>
                 <SelectContent>
                   {useCases.map((uc) => (
@@ -94,32 +120,32 @@ export default function ContextPage() {
             </div>
           </div>
 
+          {/* Coming Soon State */}
           {useCase && useCase.includes("Coming Soon") && (
-            <div className="card-glass text-center py-16 border-2 border-dashed border-border mb-8">
-              <div className="text-6xl mb-4">⏳</div>
-              <h2 className="text-xl font-extrabold text-foreground mb-3">{useCase}</h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                We are currently fine-tuning the <strong>Magical Creature</strong> logic
-                for this specific industry. Available in the next update.
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="card-glass text-center py-12 border-2 border-dashed border-border mt-8"
+            >
+              <div className="text-5xl mb-4">⏳</div>
+              <h2 className="text-lg font-extrabold text-foreground mb-2">{useCase}</h2>
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                We're fine-tuning the Magical Creature logic for this industry. Available soon.
               </p>
-              <span className="inline-block mt-6 bg-secondary text-muted-foreground text-xs font-semibold px-5 py-2 rounded-full">
-                STATUS: UNDER DEVELOPMENT
+              <span className="inline-block mt-4 bg-secondary text-muted-foreground text-xs font-semibold px-4 py-1.5 rounded-full">
+                UNDER DEVELOPMENT
               </span>
-            </div>
+            </motion.div>
           )}
 
-          <hr className="border-border my-8" />
-
-          <div className="flex gap-4">
-            <Button variant="outline" onClick={() => navigate("/canvas")} className="flex-1">
-              ← Back to Business Play
-            </Button>
+          {/* Continue Button */}
+          <div className="mt-8">
             <Button
               onClick={handleContinue}
               disabled={!canContinue}
-              className="flex-1 bg-primary text-primary-foreground"
+              className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-base"
             >
-              Continue →
+              Continue to Strategy Generator <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </motion.div>
