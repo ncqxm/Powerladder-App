@@ -12,14 +12,13 @@ import {
   classifyBusinessPlay,
   BUSINESS_PLAY_DESCRIPTIONS,
 } from "@/lib/business-logic";
-import { TrendingUp, Shield, Compass, AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
+import { TrendingUp, Shield, Compass, AlertTriangle, CheckCircle, Info, XCircle, ChevronLeft, Search } from "lucide-react";
 
 export default function MainPage() {
   const navigate = useNavigate();
   const [industry, setIndustry] = useState("");
   const [useCase, setUseCase] = useState("");
 
-  // Inputs
   const [fUnits, setFUnits] = useState(40);
   const [iBuy, setIBuy] = useState(40);
   const [uCost, setUCost] = useState(250);
@@ -40,7 +39,6 @@ export default function MainPage() {
     setUseCase(uc);
   }, [navigate]);
 
-  // Calculations
   const investmentNeeded = iBuy * uCost;
   const cashAfter = Math.max(cCash - investmentNeeded, 0);
   const result = calculateSweetSpot(fUnits, iBuy, cashAfter, aAr, cLiab);
@@ -64,143 +62,125 @@ export default function MainPage() {
 
   if (!industry) return null;
 
+  const inputFields = [
+    { label: "ML Forecast (Units Needed)", value: fUnits, setter: setFUnits },
+    { label: "Inventory to Purchase (Units)", value: iBuy, setter: setIBuy, min: 0 },
+    { label: "Unit Cost (USD)", value: uCost, setter: setUCost },
+    { label: "Current Cash on Hand", value: cCash, setter: setCCash },
+    { label: "Accounts Receivable", value: aAr, setter: setAAr },
+    { label: "Current Liabilities", value: cLiab, setter: setCLiab },
+  ];
+
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground mb-2">
-            🦄 Business Play
-          </h1>
-          <p className="text-muted-foreground mb-6">
-            {industry} → {useCase}
-          </p>
-
-          <hr className="border-border mb-8" />
-
-          {/* Explore section */}
-          <h2 className="section-header mb-6">🏜 Explore Business Play</h2>
-          <div className="card-glass mb-8">
-            <h3 className="font-bold text-foreground mb-3">{useCase}</h3>
-            <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
-              <li><strong className="text-foreground">Calculated Ambition:</strong> Finding the right balance between opportunities and financial risks.</li>
-              <li><strong className="text-foreground">Handle the Ski:</strong> Score more than 80/100 points combining opportunities with risk mitigation.</li>
-              <li><strong className="text-foreground">Dinosaur Hoping for Luck:</strong> Based on Standard Deviation from actual business data.</li>
-              <li><strong className="text-foreground">Unicorn Mistake Step:</strong> When growth outpaces financial readiness.</li>
-            </ul>
+    <div>
+      <div className="container mx-auto px-4 py-8 md:py-12">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/context")} className="-ml-2 text-muted-foreground">
+            <ChevronLeft className="h-4 w-4 mr-1" /> Back
+          </Button>
+          <div className="h-5 w-px bg-border" />
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Step 2 of 2</span>
+            <h1 className="text-2xl md:text-3xl font-black text-foreground leading-tight">
+              Strategy Generator
+            </h1>
           </div>
+        </div>
 
-          {/* Generator */}
-          <h2 className="section-header mb-6">🛡️ Business Play Generator</h2>
+        {/* Context Badge */}
+        <div className="inline-flex items-center gap-2 bg-secondary rounded-full px-4 py-1.5 mb-8 text-sm">
+          <span className="text-muted-foreground">{industry}</span>
+          <span className="text-muted-foreground">→</span>
+          <span className="font-semibold text-foreground">{useCase}</span>
+        </div>
 
-          <div className="card-glass mb-6">
-            <h3 className="font-semibold text-foreground mb-4">Step 1: ML Forecast & Cost Inputs</h3>
-            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
-              <div className="space-y-1">
-                <Label>ML Forecast (Units Needed)</Label>
-                <Input type="number" value={fUnits} onChange={(e) => setFUnits(+e.target.value)} />
-              </div>
-              <div className="space-y-1">
-                <Label>Current Cash on Hand</Label>
-                <Input type="number" value={cCash} onChange={(e) => setCCash(+e.target.value)} />
-              </div>
-              <div className="space-y-1">
-                <Label>Inventory to Purchase (Units)</Label>
-                <Input type="number" value={iBuy} onChange={(e) => setIBuy(+e.target.value)} min={0} />
-              </div>
-              <div className="space-y-1">
-                <Label>Accounts Receivable</Label>
-                <Input type="number" value={aAr} onChange={(e) => setAAr(+e.target.value)} />
-              </div>
-              <div className="space-y-1">
-                <Label>Unit Cost (USD)</Label>
-                <Input type="number" value={uCost} onChange={(e) => setUCost(+e.target.value)} />
-              </div>
-              <div className="space-y-1">
-                <Label>Current Liabilities</Label>
-                <Input type="number" value={cLiab} onChange={(e) => setCLiab(+e.target.value)} />
-              </div>
+        {/* Input Form */}
+        <section className="card-glass mb-8">
+          <h3 className="font-bold text-foreground mb-5 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <TrendingUp className="h-4 w-4 text-primary" />
             </div>
-          </div>
-
-          {cLiab <= 0 && (
-            <div className="bg-rose/10 border border-rose/30 rounded-xl p-4 mb-6 text-rose font-medium">
-              Current Liabilities cannot be zero
-            </div>
-          )}
-
-          {cLiab > 0 && (
-            <>
-              <div className="flex justify-center mb-8">
-                <Button
-                  onClick={() => setAnalyzed(true)}
-                  className="btn-cta text-base px-10"
-                >
-                  🔍 Analyze My Strategy
-                </Button>
-              </div>
-
-              {/* Dashboard */}
-              <div className="grid md:grid-cols-[1fr_1.5fr] gap-6 mb-8">
-                <BusinessPlaySummaryCard
-                  basePlay="Dinosaur Hoping for Luck"
-                  derivedPlay={derivedPlay}
-                  sweetSpot={result.sweetSpot}
-                  opportunityScore={result.opportunity}
-                  financialRiskScore={result.financialRisk}
-                />
-                <StrategyMap
-                  opportunity={result.opportunity}
-                  financialRisk={result.financialRisk}
-                  sweetSpot={result.sweetSpot}
-                  derivedPlay={derivedPlay}
+            ML Forecast & Financial Inputs
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
+            {inputFields.map((field) => (
+              <div key={field.label} className="space-y-1.5">
+                <Label className="text-xs">{field.label}</Label>
+                <Input
+                  type="number"
+                  value={field.value}
+                  onChange={(e) => field.setter(+e.target.value)}
+                  min={field.min}
+                  className="h-10"
                 />
               </div>
-
-              {/* Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="card-glass text-center">
-                  <TrendingUp className="h-5 w-5 text-primary mx-auto mb-2" />
-                  <div className="text-xs text-muted-foreground font-medium">Investment Required</div>
-                  <div className="text-2xl font-bold text-foreground">${investmentNeeded.toLocaleString()}</div>
-                </div>
-                <div className="card-glass text-center">
-                  <Shield className="h-5 w-5 text-primary mx-auto mb-2" />
-                  <div className="text-xs text-muted-foreground font-medium">Quick Ratio</div>
-                  <div className="text-2xl font-bold text-foreground">{result.qr.toFixed(2)}</div>
-                </div>
-                <div className="card-glass text-center">
-                  <Compass className="h-5 w-5 text-primary mx-auto mb-2" />
-                  <div className="text-xs text-muted-foreground font-medium">Balance (Off - Def)</div>
-                  <div className="text-2xl font-bold text-foreground">{diff.toFixed(1)}</div>
-                </div>
-              </div>
-
-              {/* Alert */}
-              <div className={`rounded-xl border p-4 mb-8 flex items-start gap-3 ${alertColor}`}>
-                <AlertIcon className="h-5 w-5 shrink-0 mt-0.5" />
-                <span className="text-sm font-medium">{playInfo.alertMsg}</span>
-              </div>
-
-              {/* Chat */}
-              {analyzed && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-                  <ChatInterface />
-                </motion.div>
-              )}
-            </>
-          )}
-
-          <hr className="border-border my-8" />
-
-          <div className="flex gap-4 flex-wrap pb-8">
-            <Button variant="outline" onClick={() => navigate("/context")} className="flex-1">
-              Back to Selection
-            </Button>
-            <Button onClick={() => navigate("/")} className="flex-1 bg-primary text-primary-foreground">
-              Back to Home
-            </Button>
+            ))}
           </div>
-        </motion.div>
+        </section>
+
+        {/* Validation */}
+        {cLiab <= 0 && (
+          <div className="bg-rose/10 border border-rose/30 rounded-xl p-4 mb-6 text-rose font-medium text-sm">
+            ⚠️ Current Liabilities cannot be zero
+          </div>
+        )}
+
+        {cLiab > 0 && (
+          <>
+            {/* Analyze Button */}
+            <div className="flex justify-center mb-10">
+              <button onClick={() => setAnalyzed(true)} className="btn-cta text-base px-10 py-3.5 flex items-center gap-2">
+                <Search className="h-4 w-4" /> Analyze My Strategy
+              </button>
+            </div>
+
+            {/* Results Dashboard */}
+            <section className="grid lg:grid-cols-[1fr_1.5fr] gap-6 mb-8">
+              <BusinessPlaySummaryCard
+                basePlay="Dinosaur Hoping for Luck"
+                derivedPlay={derivedPlay}
+                sweetSpot={result.sweetSpot}
+                opportunityScore={result.opportunity}
+                financialRiskScore={result.financialRisk}
+              />
+              <StrategyMap
+                opportunity={result.opportunity}
+                financialRisk={result.financialRisk}
+                sweetSpot={result.sweetSpot}
+                derivedPlay={derivedPlay}
+              />
+            </section>
+
+            {/* Key Metrics */}
+            <section className="grid grid-cols-3 gap-4 mb-6">
+              {[
+                { icon: TrendingUp, label: "Investment Required", value: `$${investmentNeeded.toLocaleString()}` },
+                { icon: Shield, label: "Quick Ratio", value: result.qr.toFixed(2) },
+                { icon: Compass, label: "Balance (Off - Def)", value: diff.toFixed(1) },
+              ].map((m) => (
+                <div key={m.label} className="card-glass text-center">
+                  <m.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                  <div className="text-xs text-muted-foreground font-medium">{m.label}</div>
+                  <div className="text-2xl font-bold text-foreground">{m.value}</div>
+                </div>
+              ))}
+            </section>
+
+            {/* Alert */}
+            <div className={`rounded-xl border p-4 mb-10 flex items-start gap-3 ${alertColor}`}>
+              <AlertIcon className="h-5 w-5 shrink-0 mt-0.5" />
+              <span className="text-sm font-medium">{playInfo.alertMsg}</span>
+            </div>
+
+            {/* Chat */}
+            {analyzed && (
+              <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <ChatInterface />
+              </motion.section>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

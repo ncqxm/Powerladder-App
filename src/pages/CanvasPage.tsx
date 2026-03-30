@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import FlipCard from "@/components/FlipCard";
 
 import camelSki from "@/assets/camel-handle-ski.jpg";
@@ -13,8 +14,9 @@ import unicornMistake from "@/assets/unicorn-mistake.jpg";
 
 const sections = [
   {
-    label: "Camel",
-    description: "Focuses on sustainable growth, adaptable and cost-effective.",
+    label: "🐪 Camel",
+    color: "border-emerald",
+    description: "Sustainable growth. Adaptable. Cost-effective. Built to thrive in harsh conditions.",
     cards: [
       { img: camelSki, title: "Handle the Ski", desc: "A resilient organism built to traverse the Snow without thirst or fear." },
       { img: camelSmart, title: "Smart Camel", desc: "Cure strategic blindness by mastering your internal data." },
@@ -23,14 +25,16 @@ const sections = [
     ],
   },
   {
-    label: "Dinosaur",
-    description: "Risks falling behind due to old-fashioned methods. Needs to adopt new technologies to stay competitive.",
+    label: "🦕 Dinosaur",
+    color: "border-rose",
+    description: "Risks falling behind due to old-fashioned methods. Needs new technologies to stay competitive.",
     cards: [
       { img: dinoBlind, title: "Blind Dinosaur", desc: "Alert: You cannot automate what you cannot measure." },
     ],
   },
   {
-    label: "Unicorn",
+    label: "🦄 Unicorn",
+    color: "border-amber",
     description: "Requires substantial investment, which could be risky if growth isn't sustainable.",
     cards: [
       { img: unicornBleed, title: "Unicorn Bleed", desc: "Alert: Don't trade value for volume." },
@@ -43,96 +47,101 @@ export default function CanvasPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        {/* Nav */}
-        <Button variant="outline" onClick={() => navigate("/")}>
-          🏠 Return Home
-        </Button>
-        <hr className="border-border my-6" />
+    <div>
+      {/* Hero */}
+      <section className="bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto px-4 pt-12 pb-16 md:pt-16 md:pb-20">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <span className="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
+                Strategy Framework
+              </span>
+              <h1 className="text-3xl md:text-5xl font-black text-foreground leading-tight mb-4">
+                Why create a Unique <span className="text-primary">Business Play</span>?
+              </h1>
+              <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                No two businesses share the same DNA. We generate a proprietary
+                Business Play that competitors cannot replicate by mapping your
+                unique lifecycle stage to our <strong className="text-foreground">Magical Creature Model</strong>.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  onClick={() => navigate("/context")}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                >
+                  Choose Your Context <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button variant="outline" asChild>
+                  <a href="https://www.powerladder.net/plstart" target="_blank" rel="noopener noreferrer">
+                    PowerLadder Assessment
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
 
-        {/* Intro */}
-        <div className="flex flex-col md:flex-row gap-8 items-start mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex-1"
-          >
-            <h1 className="text-3xl md:text-5xl font-black text-foreground leading-tight mb-4">
-              Why create a Unique Business Play?
-            </h1>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              No two businesses share the same DNA. Whether you are a scrappy
-              Startup, a Profitable scaler, a Mature giant, or facing Decline,
-              your strategy must be custom-built to your reality. We generate a
-              proprietary Business Play that competitors cannot replicate by
-              first mapping your unique lifecycle stage to our Magical Creature
-              Model.
-            </p>
-          </motion.div>
-          <div className="flex flex-col gap-3 shrink-0">
-            <Button onClick={() => navigate("/context")} className="bg-primary text-primary-foreground">
-              🚀 Choose Your Business Context
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="https://www.powerladder.net/plstart" target="_blank" rel="noopener noreferrer">
-                Start PowerLadder Assessment
-              </a>
-            </Button>
-          </div>
-        </div>
-
-        <hr className="border-border my-8" />
-
-        {/* Featured */}
-        <h2 className="section-header mb-10">Business Play</h2>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-10">
-          <div className="card-glass flex flex-col justify-center">
-            <h3 className="text-3xl font-extrabold text-foreground mb-4">Handle the Ski</h3>
-            <blockquote className="text-base italic text-muted-foreground border-l-4 border-primary bg-primary/5 px-4 py-3 rounded-r-lg mb-4">
-              "A resilient organism built to traverse the snow without thirst or fear."
-            </blockquote>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The business play that reveals the Risk vs Reward stats for
-              specific units. Stack this play to validate safe wins — like
-              confirming that your heavy inventory is actually a profit
-              multiplier, not a liability.
-            </p>
-          </div>
-          <div className="flex items-center justify-center">
-            <img
-              src={camelSki}
-              alt="Handle the Ski"
-              className="w-3/4 rounded-2xl shadow-xl hover:scale-[1.02] transition-transform"
-              loading="lazy"
-              width={512}
-              height={512}
-            />
-          </div>
-        </div>
-
-        <hr className="border-border my-8" />
-
-        {/* Card Sections */}
-        {sections.map((section, sIdx) => (
-          <motion.div
-            key={section.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: sIdx * 0.1 }}
-            className="mb-12"
-          >
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="md:w-1/5 shrink-0">
-                <div className="border-l-4 border-primary pl-4">
-                  <h3 className="text-2xl font-extrabold text-foreground">{section.label}</h3>
-                  <p className="text-sm text-muted-foreground mt-2">{section.description}</p>
+            {/* Featured Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="card-glass"
+            >
+              <div className="flex gap-5 items-start">
+                <img
+                  src={camelSki}
+                  alt="Handle the Ski"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-xl object-cover shadow-md shrink-0"
+                  loading="lazy"
+                  width={512}
+                  height={512}
+                />
+                <div>
+                  <h3 className="text-xl md:text-2xl font-extrabold text-foreground mb-2">Handle the Ski</h3>
+                  <blockquote className="text-sm italic text-muted-foreground border-l-4 border-primary bg-primary/5 px-3 py-2 rounded-r-lg mb-3">
+                    "A resilient organism built to traverse the snow without thirst or fear."
+                  </blockquote>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Validates safe wins — confirming heavy inventory is a profit
+                    multiplier, not a liability.
+                  </p>
                 </div>
               </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4">
+      {/* Model Sections */}
+      <section className="container mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-foreground">
+            Magical Creature Models
+          </h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+            Hover or tap each card to discover the strategy behind each creature.
+          </p>
+        </div>
+
+        <div className="space-y-16">
+          {sections.map((section, sIdx) => (
+            <motion.div
+              key={section.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: sIdx * 0.1 }}
+            >
+              {/* Section Header */}
+              <div className={`border-l-4 ${section.color} pl-4 mb-6`}>
+                <h3 className="text-2xl font-extrabold text-foreground">{section.label}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{section.description}</p>
+              </div>
+
+              {/* Cards Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {section.cards.map((card) => (
                   <FlipCard
                     key={card.title}
@@ -142,21 +151,25 @@ export default function CanvasPage() {
                   />
                 ))}
               </div>
-            </div>
-            <hr className="border-border mt-8" />
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-        {/* Footer Nav */}
-        <div className="flex gap-4 flex-wrap pb-8">
-          <Button variant="outline" onClick={() => navigate("/")} className="flex-1">
-            Back to Home
-          </Button>
-          <Button onClick={() => navigate("/context")} className="flex-1 bg-primary text-primary-foreground">
-            Choose Your Business Context →
+      {/* CTA */}
+      <section className="container mx-auto px-4 py-12 pb-16">
+        <div className="card-glass text-center py-10 px-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+          <h2 className="text-2xl font-black text-foreground mb-2">Find your Business Play</h2>
+          <p className="text-muted-foreground mb-5">Select your industry and let AI map your strategy.</p>
+          <Button
+            onClick={() => navigate("/context")}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+            size="lg"
+          >
+            Choose Your Business Context <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
