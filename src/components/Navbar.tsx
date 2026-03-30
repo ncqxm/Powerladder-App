@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -45,8 +46,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
+        {/* Desktop CTA + Theme */}
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Button
             onClick={() => navigate("/context")}
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
@@ -85,16 +87,19 @@ export default function Navbar() {
               {item.label}
             </button>
           ))}
-          <Button
-            onClick={() => {
-              navigate("/context");
-              setMobileOpen(false);
-            }}
-            className="w-full mt-2 bg-primary text-primary-foreground"
-            size="sm"
-          >
-            Get Started →
-          </Button>
+          <div className="flex items-center gap-2 mt-2">
+            <ThemeToggle />
+            <Button
+              onClick={() => {
+                navigate("/context");
+                setMobileOpen(false);
+              }}
+              className="flex-1 bg-primary text-primary-foreground"
+              size="sm"
+            >
+              Get Started →
+            </Button>
+          </div>
         </div>
       )}
     </header>

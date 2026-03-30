@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain } from "lucide-react";
+import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import camelCalculated from "@/assets/camel-calculated.jpg";
@@ -95,6 +95,18 @@ export default function WelcomePage() {
               </div>
             </motion.div>
           </div>
+          {/* Scroll-down arrow */}
+          <motion.button
+            onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 8, 0] }}
+            transition={{ delay: 1, y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }}
+            className="mx-auto mt-8 flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Scroll to features"
+          >
+            <span className="text-xs font-medium">Explore</span>
+            <ChevronDown className="h-5 w-5" />
+          </motion.button>
         </div>
       </section>
 
