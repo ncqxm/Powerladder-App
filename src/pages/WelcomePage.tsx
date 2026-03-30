@@ -38,7 +38,7 @@ export default function WelcomePage() {
   return (
     <div>
       {/* ──────── Hero ──────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background">
+      <section id="hero" className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 pt-16 pb-12 md:pt-24 md:pb-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -99,7 +99,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ──────── Features ──────── */}
-      <section className="container mx-auto px-4 py-16">
+      <section id="features" className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-6">
           {features.map((f, i) => (
             <motion.div
@@ -121,7 +121,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ──────── Case Study ──────── */}
-      <section className="bg-card border-y border-border">
+      <section id="case-study" className="bg-card border-y border-border">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-primary">Case Study</span>
@@ -248,7 +248,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ──────── CTA ──────── */}
-      <section className="container mx-auto px-4 py-16">
+      <section id="cta" className="container mx-auto px-4 py-16">
         <div className="card-glass text-center py-12 px-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
           <h2 className="text-2xl md:text-3xl font-black text-foreground mb-3">
             Ready to find your Golden Equilibrium?
