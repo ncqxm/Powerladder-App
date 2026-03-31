@@ -13,6 +13,7 @@ import MainPage from "./pages/MainPage";
 import PipelinePage from "./pages/PipelinePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
