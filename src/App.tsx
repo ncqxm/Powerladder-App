@@ -33,6 +33,7 @@ const App = () => (
               <Route path="/canvas" element={<ProtectedRoute><CanvasPage /></ProtectedRoute>} />
               <Route path="/context" element={<ProtectedRoute><ContextPage /></ProtectedRoute>} />
               <Route path="/main" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/pipeline" element={<PipelinePage />} />
               <Route path="*" element={<NotFound />} />
             </Route>

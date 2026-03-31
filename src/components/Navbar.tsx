@@ -57,9 +57,9 @@ export default function Navbar() {
           <ThemeToggle />
           {user ? (
             <>
-              <span className="text-xs text-muted-foreground truncate max-w-[140px]">
-                {user.email}
-              </span>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/profile")} className="text-xs text-muted-foreground truncate max-w-[140px]">
+                <User className="h-4 w-4 mr-1" /> {user.email}
+              </Button>
               <Button variant="ghost" size="icon" onClick={handleSignOut} title="ออกจากระบบ">
                 <LogOut className="h-4 w-4" />
               </Button>
