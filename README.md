@@ -40,7 +40,7 @@ The core scoring logic is based on two dimensions:
 
 ## About Power Ladder
 
-**Power Ladder** is a Thai business consulting firm based in Phitsanulok, Thailand, with operations targeting Thailand, Singapore, Japan, and the USA.
+**Power Ladder** is a Thai business consulting firm based in Phitsanulok, Thailand, with operations targeting Thailand, Singapore, and the USA.
 
 > *"Great decisions demand two things: Data Science to uncover opportunities, and Financial Expertise to manage risk."*
 
@@ -49,7 +49,3 @@ The core scoring logic is based on two dimensions:
 - 🏢 Phitsanulok, Thailand
 
 ---
-
-## License
-
-Private. All rights reserved. The Golden Equilibrium Framework and Business Play methodologies are the intellectual property of **Dithanon Khrutmuang**.
