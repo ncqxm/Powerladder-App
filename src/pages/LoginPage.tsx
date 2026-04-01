@@ -10,11 +10,17 @@ import { LogIn, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle } = useAuth();
+  const { user, loading: authLoading, signIn, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
