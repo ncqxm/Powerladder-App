@@ -27,6 +27,16 @@ export default function Navbar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const [profile, setProfile] = useState<{ display_name: string | null; avatar_url: string | null } | null>(null);
+
+  useEffect(() => {
+    if (!user) { setProfile(null); return; }
+    supabase.from("profiles").select("display_name, avatar_url").eq("user_id", user.id).maybeSingle()
+      .then(({ data }) => setProfile(data));
+  }, [user]);
+
+  const displayName = profile?.display_name || user?.user_metadata?.full_name || null;
+  const initials = displayName ? displayName.slice(0, 1).toUpperCase() : user?.email?.slice(0, 1).toUpperCase() || "?";
 
   const handleSignOut = async () => {
     await signOut();
