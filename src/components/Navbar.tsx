@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navItems = [
   { label: "Home", path: "/" },
