@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import FlipCard from "@/components/FlipCard";
+import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis, RadarChart, PolarGrid, PolarRadiusAxis, Radar, Legend } from "recharts";
 
 import camelSki from "@/assets/camel-handle-ski.jpg";
 import camelSmart from "@/assets/camel-smart.jpg";
@@ -42,6 +44,54 @@ const sections = [
     ],
   },
 ];
+
+// Demo data for dashboard
+const demoScores = {
+  opportunity: 80,
+  financial: 70,
+  sweetSpot: 75,
+};
+
+const gaugeData = (value: number, fill: string) => [
+  { value, fill },
+];
+
+const radarData = [
+  { metric: "Demand-Supply", score: 80, benchmark: 65 },
+  { metric: "Liquidity", score: 70, benchmark: 60 },
+  { metric: "Cash Resilience", score: 75, benchmark: 55 },
+  { metric: "Growth Rate", score: 60, benchmark: 70 },
+  { metric: "Risk Control", score: 85, benchmark: 60 },
+];
+
+function GaugeChart({ value, label, color }: { value: number; label: string; color: string }) {
+  return (
+    <div className="card-glass flex flex-col items-center py-6">
+      <ResponsiveContainer width={140} height={140}>
+        <RadialBarChart
+          cx="50%"
+          cy="50%"
+          innerRadius="70%"
+          outerRadius="100%"
+          barSize={12}
+          data={gaugeData(value, color)}
+          startAngle={180}
+          endAngle={0}
+        >
+          <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
+          <RadialBar
+            background={{ fill: "hsl(var(--secondary))" }}
+            dataKey="value"
+            angleAxisId={0}
+            cornerRadius={6}
+          />
+        </RadialBarChart>
+      </ResponsiveContainer>
+      <div className="text-3xl font-black text-foreground -mt-4">{value}</div>
+      <div className="text-xs font-bold text-muted-foreground uppercase tracking-wide mt-1">{label}</div>
+    </div>
+  );
+}
 
 export default function CanvasPage() {
   const navigate = useNavigate();
@@ -111,6 +161,48 @@ export default function CanvasPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ──────── Business Health Dashboard ──────── */}
+      <section className="bg-card border-y border-border">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Interactive Dashboard</span>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">
+              Business Health Scores
+            </h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+              Example scores showing Opportunity, Financial Readiness, and the combined Sweet Spot.
+            </p>
+          </div>
+
+          {/* Gauge Charts */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <GaugeChart value={demoScores.opportunity} label="📊 Opportunity Score" color="hsl(152, 60%, 54%)" />
+            <GaugeChart value={demoScores.financial} label="💵 Financial Readiness" color="hsl(38, 92%, 50%)" />
+            <GaugeChart value={demoScores.sweetSpot} label="🎯 Sweet Spot Score" color="hsl(195, 78%, 53%)" />
+          </div>
+
+          {/* Radar Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="card-glass max-w-2xl mx-auto"
+          >
+            <h3 className="text-sm font-bold text-foreground text-center mb-4">Multi-Dimension Analysis</h3>
+            <ResponsiveContainer width="100%" height={320}>
+              <RadarChart data={radarData}>
+                <PolarGrid stroke="hsl(var(--border))" />
+                <PolarAngleAxis dataKey="metric" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
+                <Radar name="Your Score" dataKey="score" stroke="hsl(195, 78%, 53%)" fill="hsl(195, 78%, 53%)" fillOpacity={0.3} />
+                <Radar name="Industry Avg" dataKey="benchmark" stroke="hsl(38, 92%, 50%)" fill="hsl(38, 92%, 50%)" fillOpacity={0.15} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+              </RadarChart>
+            </ResponsiveContainer>
+          </motion.div>
         </div>
       </section>
 

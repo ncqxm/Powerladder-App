@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown } from "lucide-react";
+import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import camelCalculated from "@/assets/camel-calculated.jpg";
@@ -20,6 +20,41 @@ const features = [
     icon: Sparkles,
     title: "Custom Business Play",
     desc: "Get a proprietary strategy that competitors cannot replicate.",
+  },
+];
+
+const plays = [
+  {
+    emoji: "🛡️",
+    name: "Handle the Ski",
+    tagline: "High scores on both dimensions",
+    desc: "Risk is manageable with proper controls. Proceed carefully with inventory decisions.",
+    color: "bg-emerald/10 border-emerald/30 text-emerald",
+    score: "80+",
+  },
+  {
+    emoji: "🧠",
+    name: "Calculated Ambition",
+    tagline: "Strong financial, moderate opportunity",
+    desc: "Strong financial position detected. You may pursue a more aggressive growth strategy.",
+    color: "bg-primary/10 border-primary/30 text-primary",
+    score: "60-79",
+  },
+  {
+    emoji: "🦄",
+    name: "Unicorn Mistake Step",
+    tagline: "High demand, cash risk too high",
+    desc: "Strong demand but cash risk is too high. Growth may break the business.",
+    color: "bg-amber/10 border-amber/30 text-amber",
+    score: "60-79",
+  },
+  {
+    emoji: "🦕",
+    name: "Dinosaur Hoping for Luck",
+    tagline: "High uncertainty, low readiness",
+    desc: "Data quality and financial risk controls must be fixed first.",
+    color: "bg-rose/10 border-rose/30 text-rose",
+    score: "<60",
   },
 ];
 
@@ -47,7 +82,7 @@ export default function WelcomePage() {
               transition={{ duration: 0.7 }}
             >
               <span className="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-5">
-                AI-Driven Consulting
+                Golden Equilibrium Framework
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground leading-[1.1] mb-6">
                 Complex Data.
@@ -63,18 +98,26 @@ export default function WelcomePage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <button
-                  onClick={() => navigate("/context")}
-                  className="btn-cta text-base px-8 py-3.5"
+                  onClick={() => navigate("/register")}
+                  className="btn-cta text-base px-8 py-3.5 flex items-center gap-2"
                 >
-                  Get Started <ArrowRight className="inline ml-2 h-4 w-4" />
+                  <UserPlus className="h-4 w-4" /> Sign Up Free
                 </button>
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={() => navigate("/canvas")}
+                  onClick={() => navigate("/context")}
                   className="font-semibold"
                 >
-                  Explore Models
+                  Try Demo <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  onClick={() => document.getElementById("plays")?.scrollIntoView({ behavior: "smooth" })}
+                  className="font-semibold text-muted-foreground"
+                >
+                  Learn More
                 </Button>
               </div>
             </motion.div>
@@ -132,129 +175,165 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      {/* ──────── Case Study ──────── */}
-      <section id="case-study" className="bg-card border-y border-border">
+      {/* ──────── 4 Business Play Classifications ──────── */}
+      <section id="plays" className="bg-card border-y border-border">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-primary">Case Study</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Strategy Classification</span>
             <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">
-              Optimizing Retail & Wholesale Strategy
+              4 Business Play Classifications
             </h2>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-              See how <strong className="text-foreground">Belly Thailand</strong> uses Business Play to
-              balance growth with liquidity in the resort tent industry.
+              Based on your <strong className="text-foreground">Opportunity Score</strong> and{" "}
+              <strong className="text-foreground">Financial Readiness</strong>, we classify your business
+              into one of four strategic archetypes.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 items-start">
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center"
-            >
-              <img
-                src={camelCalculated}
-                alt="Calculated Ambition"
-                className="w-full max-w-[280px] rounded-2xl shadow-lg"
-                loading="lazy"
-                width={512}
-                height={512}
-              />
-              <p className="text-sm text-muted-foreground mt-3 italic font-medium text-center">
-                "Calculated Ambition"
-              </p>
-            </motion.div>
-
-            {/* Summary Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="card-glass"
-            >
-              <div className="flex items-center gap-2 font-bold text-foreground mb-5">
-                <Compass className="h-5 w-5 text-primary" /> Business Play Summary
-              </div>
-              <div className="mb-4">
-                <div className="text-xs font-semibold uppercase text-muted-foreground">Derived Strategy</div>
-                <div className="text-base font-bold text-primary border-l-4 border-primary pl-3 mt-1">
-                  Calculated Ambition
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {plays.map((play, i) => (
+              <motion.div
+                key={play.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className={`rounded-2xl border p-6 ${play.color} flex flex-col`}
+              >
+                <div className="text-4xl mb-3">{play.emoji}</div>
+                <h3 className="text-lg font-extrabold mb-1">{play.name}</h3>
+                <p className="text-xs font-semibold opacity-80 mb-3">{play.tagline}</p>
+                <p className="text-sm leading-relaxed flex-1">{play.desc}</p>
+                <div className="mt-4 pt-3 border-t border-current/20">
+                  <span className="text-xs font-bold uppercase">Sweet Spot: {play.score}</span>
                 </div>
-              </div>
-              <div className="text-center bg-secondary rounded-xl p-5 mb-4 border border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground">Sweet Spot Score</div>
-                <div className="text-5xl font-black text-foreground leading-none mt-1">
-                  {demoData.sweet}<span className="text-lg font-normal text-muted-foreground">/100</span>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="metric-card-green flex-1">
-                  <div className="text-[0.65rem] font-bold text-emerald">Opportunity</div>
-                  <div className="text-xl font-extrabold text-emerald">{demoData.opp}</div>
-                </div>
-                <div className="metric-card-amber flex-1">
-                  <div className="text-[0.65rem] font-bold text-amber">Readiness</div>
-                  <div className="text-xl font-extrabold text-amber">{demoData.risk}</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Strategy Map mini */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="card-glass flex flex-col items-center justify-center"
-            >
-              <p className="text-xs font-bold uppercase text-muted-foreground mb-4">Strategy Position</p>
-              <div className="relative w-full aspect-square max-w-[240px]">
-                <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 rounded-xl overflow-hidden border border-border">
-                  <div className="bg-primary/10" />
-                  <div className="bg-emerald/10" />
-                  <div className="bg-rose/10" />
-                  <div className="bg-amber/10" />
-                </div>
-                <div className="absolute top-1/2 left-0 right-0 border-t border-dashed border-muted-foreground/30" />
-                <div className="absolute left-1/2 top-0 bottom-0 border-l border-dashed border-muted-foreground/30" />
-                <div
-                  className="absolute w-4 h-4 bg-primary rounded-full border-2 border-background shadow-lg"
-                  style={{
-                    left: `${demoData.opp}%`,
-                    bottom: `${demoData.risk}%`,
-                    transform: "translate(-50%, 50%)",
-                  }}
-                />
-                <div className="absolute bottom-0 left-0 right-0 text-center text-[10px] text-muted-foreground translate-y-5">
-                  Opportunity →
-                </div>
-                <div className="absolute left-0 top-0 bottom-0 flex items-center -translate-x-5">
-                  <span className="text-[10px] text-muted-foreground -rotate-90 whitespace-nowrap">
-                    Readiness →
-                  </span>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* Metrics row */}
-          <div className="grid grid-cols-3 gap-4 mt-10">
-            <div className="card-glass text-center">
-              <TrendingUp className="h-5 w-5 text-primary mx-auto mb-2" />
-              <div className="text-xs text-muted-foreground font-medium">Investment</div>
-              <div className="text-2xl font-bold text-foreground">${demoData.investment.toLocaleString()}</div>
+      {/* ──────── Demo Results Screenshot ──────── */}
+      <section id="case-study" className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">Case Study</span>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">
+            Example: Business Health Score
+          </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            See how <strong className="text-foreground">Belly Thailand</strong> uses Business Play to
+            balance growth with liquidity in the resort tent industry.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 items-start">
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <img
+              src={camelCalculated}
+              alt="Calculated Ambition"
+              className="w-full max-w-[280px] rounded-2xl shadow-lg"
+              loading="lazy"
+              width={512}
+              height={512}
+            />
+            <p className="text-sm text-muted-foreground mt-3 italic font-medium text-center">
+              "Calculated Ambition"
+            </p>
+          </motion.div>
+
+          {/* Summary Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="card-glass"
+          >
+            <div className="flex items-center gap-2 font-bold text-foreground mb-5">
+              <Compass className="h-5 w-5 text-primary" /> Business Play Summary
             </div>
-            <div className="card-glass text-center">
-              <Shield className="h-5 w-5 text-primary mx-auto mb-2" />
-              <div className="text-xs text-muted-foreground font-medium">Quick Ratio</div>
-              <div className="text-2xl font-bold text-foreground">{demoData.qr.toFixed(2)}</div>
+            <div className="mb-4">
+              <div className="text-xs font-semibold uppercase text-muted-foreground">Derived Strategy</div>
+              <div className="text-base font-bold text-primary border-l-4 border-primary pl-3 mt-1">
+                Calculated Ambition
+              </div>
             </div>
-            <div className="card-glass text-center">
-              <Compass className="h-5 w-5 text-primary mx-auto mb-2" />
-              <div className="text-xs text-muted-foreground font-medium">Balance</div>
-              <div className="text-2xl font-bold text-foreground">{demoData.balance.toFixed(1)}</div>
+            <div className="text-center bg-secondary rounded-xl p-5 mb-4 border border-border">
+              <div className="text-xs font-bold uppercase text-muted-foreground">Sweet Spot Score</div>
+              <div className="text-5xl font-black text-foreground leading-none mt-1">
+                {demoData.sweet}<span className="text-lg font-normal text-muted-foreground">/100</span>
+              </div>
             </div>
+            <div className="flex gap-3">
+              <div className="metric-card-green flex-1">
+                <div className="text-[0.65rem] font-bold text-emerald">Opportunity</div>
+                <div className="text-xl font-extrabold text-emerald">{demoData.opp}</div>
+              </div>
+              <div className="metric-card-amber flex-1">
+                <div className="text-[0.65rem] font-bold text-amber">Readiness</div>
+                <div className="text-xl font-extrabold text-amber">{demoData.risk}</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Strategy Map mini */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="card-glass flex flex-col items-center justify-center"
+          >
+            <p className="text-xs font-bold uppercase text-muted-foreground mb-4">Strategy Position</p>
+            <div className="relative w-full aspect-square max-w-[240px]">
+              <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 rounded-xl overflow-hidden border border-border">
+                <div className="bg-primary/10" />
+                <div className="bg-emerald/10" />
+                <div className="bg-rose/10" />
+                <div className="bg-amber/10" />
+              </div>
+              <div className="absolute top-1/2 left-0 right-0 border-t border-dashed border-muted-foreground/30" />
+              <div className="absolute left-1/2 top-0 bottom-0 border-l border-dashed border-muted-foreground/30" />
+              <div
+                className="absolute w-4 h-4 bg-primary rounded-full border-2 border-background shadow-lg"
+                style={{
+                  left: `${demoData.opp}%`,
+                  bottom: `${demoData.risk}%`,
+                  transform: "translate(-50%, 50%)",
+                }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 text-center text-[10px] text-muted-foreground translate-y-5">
+                Opportunity →
+              </div>
+              <div className="absolute left-0 top-0 bottom-0 flex items-center -translate-x-5">
+                <span className="text-[10px] text-muted-foreground -rotate-90 whitespace-nowrap">
+                  Readiness →
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Metrics row */}
+        <div className="grid grid-cols-3 gap-4 mt-10">
+          <div className="card-glass text-center">
+            <TrendingUp className="h-5 w-5 text-primary mx-auto mb-2" />
+            <div className="text-xs text-muted-foreground font-medium">Investment</div>
+            <div className="text-2xl font-bold text-foreground">${demoData.investment.toLocaleString()}</div>
+          </div>
+          <div className="card-glass text-center">
+            <Shield className="h-5 w-5 text-primary mx-auto mb-2" />
+            <div className="text-xs text-muted-foreground font-medium">Quick Ratio</div>
+            <div className="text-2xl font-bold text-foreground">{demoData.qr.toFixed(2)}</div>
+          </div>
+          <div className="card-glass text-center">
+            <Compass className="h-5 w-5 text-primary mx-auto mb-2" />
+            <div className="text-xs text-muted-foreground font-medium">Balance</div>
+            <div className="text-2xl font-bold text-foreground">{demoData.balance.toFixed(1)}</div>
           </div>
         </div>
       </section>
@@ -270,16 +349,24 @@ export default function WelcomePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <button
-              onClick={() => navigate("/context")}
-              className="btn-cta text-base px-10 py-3.5"
+              onClick={() => navigate("/register")}
+              className="btn-cta text-base px-10 py-3.5 flex items-center gap-2"
             >
-              It's Your Turn <ArrowRight className="inline ml-2 h-4 w-4" />
+              <UserPlus className="h-4 w-4" /> Sign Up Free
             </button>
             <Button
               variant="outline"
               size="lg"
-              onClick={() => navigate("/pipeline")}
+              onClick={() => navigate("/context")}
               className="font-semibold"
+            >
+              Try Demo <ArrowRight className="ml-1 h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={() => navigate("/pipeline")}
+              className="font-semibold text-muted-foreground"
             >
               How It Works
             </Button>
