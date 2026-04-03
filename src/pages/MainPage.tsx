@@ -99,10 +99,12 @@ function getActionPlan(play: string, industry: string, riskTolerance: string) {
 
 export default function MainPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [industry, setIndustry] = useState("");
   const [useCase, setUseCase] = useState("");
   const [formData, setFormData] = useState<StoredFormData | null>(null);
   const [analyzed, setAnalyzed] = useState(false);
+  const savedRef = useRef(false);
 
   useEffect(() => {
     const ind = sessionStorage.getItem("bp_industry");
