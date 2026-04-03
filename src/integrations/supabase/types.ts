@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      analyses: {
+        Row: {
+          accounts_receivable: number | null
+          business_play: string | null
+          cash_on_hand: number | null
+          created_at: string
+          current_liabilities: number | null
+          customer_base: number | null
+          financial_score: number | null
+          growth_target: number | null
+          id: string
+          industry: string | null
+          inventory_units: number | null
+          market_size: number | null
+          opportunity_score: number | null
+          revenue: number | null
+          risk_tolerance: string | null
+          sales_velocity: number | null
+          sweet_spot_score: number | null
+          title: string
+          unit_cost: number | null
+          user_id: string
+        }
+        Insert: {
+          accounts_receivable?: number | null
+          business_play?: string | null
+          cash_on_hand?: number | null
+          created_at?: string
+          current_liabilities?: number | null
+          customer_base?: number | null
+          financial_score?: number | null
+          growth_target?: number | null
+          id?: string
+          industry?: string | null
+          inventory_units?: number | null
+          market_size?: number | null
+          opportunity_score?: number | null
+          revenue?: number | null
+          risk_tolerance?: string | null
+          sales_velocity?: number | null
+          sweet_spot_score?: number | null
+          title?: string
+          unit_cost?: number | null
+          user_id: string
+        }
+        Update: {
+          accounts_receivable?: number | null
+          business_play?: string | null
+          cash_on_hand?: number | null
+          created_at?: string
+          current_liabilities?: number | null
+          customer_base?: number | null
+          financial_score?: number | null
+          growth_target?: number | null
+          id?: string
+          industry?: string | null
+          inventory_units?: number | null
+          market_size?: number | null
+          opportunity_score?: number | null
+          revenue?: number | null
+          risk_tolerance?: string | null
+          sales_velocity?: number | null
+          sweet_spot_score?: number | null
+          title?: string
+          unit_cost?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -21,6 +90,7 @@ export type Database = {
           created_at: string
           display_name: string | null
           id: string
+          industry: string | null
           updated_at: string
           user_id: string
         }
@@ -30,6 +100,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+          industry?: string | null
           updated_at?: string
           user_id: string
         }
@@ -39,6 +110,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+          industry?: string | null
           updated_at?: string
           user_id?: string
         }
