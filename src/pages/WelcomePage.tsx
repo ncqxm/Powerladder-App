@@ -99,20 +99,31 @@ export default function WelcomePage() {
                 actionable strategy.
               </p>
               <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => navigate("/register")}
-                  className="btn-cta text-base px-8 py-3.5 flex items-center gap-2"
-                >
-                  <UserPlus className="h-4 w-4" /> Sign Up Free
-                </button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => navigate("/context")}
-                  className="font-semibold"
-                >
-                  Try Demo <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
+                {user ? (
+                  <button
+                    onClick={() => navigate("/context")}
+                    className="btn-cta text-base px-8 py-3.5 flex items-center gap-2"
+                  >
+                    <Compass className="h-4 w-4" /> Start Analysis
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => navigate("/register")}
+                    className="btn-cta text-base px-8 py-3.5 flex items-center gap-2"
+                  >
+                    <UserPlus className="h-4 w-4" /> Sign Up Free
+                  </button>
+                )}
+                {!user && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={() => navigate("/context")}
+                    className="font-semibold"
+                  >
+                    Try Demo <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                )}
                 <Button
                   variant="ghost"
                   size="lg"
