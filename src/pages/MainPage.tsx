@@ -121,6 +121,39 @@ export default function MainPage() {
     }
   }, [navigate]);
 
+  // Auto-save analysis to database
+  useEffect(() => {
+    if (!user || !formData || !industry || savedRef.current) return;
+    const investmentNeeded = formData.inventoryUnits * formData.unitCost;
+    const cashAfter = Math.max(formData.cashOnHand - investmentNeeded, 0);
+    const r = calculateSweetSpot(formData.salesVelocity, formData.inventoryUnits, cashAfter, formData.accountsReceivable, formData.currentLiabilities);
+    const play = classifyBusinessPlay(r.opportunity, r.financialRisk, r.sweetSpot);
+
+    savedRef.current = true;
+    supabase.from("analyses").insert({
+      user_id: user.id,
+      title: `${industry} Analysis`,
+      industry,
+      market_size: formData.marketSize,
+      customer_base: formData.customerBase,
+      revenue: formData.revenue,
+      cash_on_hand: formData.cashOnHand,
+      accounts_receivable: formData.accountsReceivable,
+      current_liabilities: formData.currentLiabilities,
+      inventory_units: formData.inventoryUnits,
+      unit_cost: formData.unitCost,
+      sales_velocity: formData.salesVelocity,
+      growth_target: formData.growthTarget,
+      risk_tolerance: formData.riskTolerance,
+      opportunity_score: r.opportunity,
+      financial_score: r.financialRisk,
+      sweet_spot_score: r.sweetSpot,
+      business_play: play,
+    } as any).then(({ error }) => {
+      if (!error) toast.success("บันทึกผลวิเคราะห์แล้ว");
+    });
+  }, [user, formData, industry]);
+
   if (!industry || !formData) return null;
 
   const investmentNeeded = formData.inventoryUnits * formData.unitCost;
