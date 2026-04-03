@@ -69,6 +69,7 @@ const demoData = {
 };
 
 export default function WelcomePage() {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   return (
