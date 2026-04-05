@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import { Mail, Globe, Phone } from "lucide-react";
 export default function Footer() {
   const navigate = useNavigate();
 
@@ -61,18 +61,26 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* CTA */}
+          {/* Contact */}
           <div>
-            <h4 className="text-sm font-bold text-foreground mb-3">Get Started</h4>
-            <p className="text-sm text-muted-foreground mb-3">
-              Find your Golden Equilibrium today.
-            </p>
-            <button
-              onClick={() => navigate("/context")}
-              className="btn-cta text-sm px-6 py-2"
-            >
-              Start Free →
-            </button>
+            <h4 className="text-sm font-bold text-foreground mb-3">ติดต่อ Power Ladder</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="mailto:dithanon@powerladder.tech" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Mail className="h-3.5 w-3.5" /> dithanon@powerladder.tech
+                </a>
+              </li>
+              <li>
+                <a href="https://powerladder.net" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Globe className="h-3.5 w-3.5" /> powerladder.net
+                </a>
+              </li>
+              <li>
+                <a href="https://powerladder.net" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Phone className="h-3.5 w-3.5" /> ติดต่อเรา
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
