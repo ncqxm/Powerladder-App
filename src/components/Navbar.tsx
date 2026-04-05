@@ -20,6 +20,7 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "Business Play", path: "/canvas" },
   { label: "How It Works", path: "/pipeline" },
+  { label: "Help", path: "/help" },
 ];
 
 export default function Navbar() {
