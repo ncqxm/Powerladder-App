@@ -267,7 +267,17 @@ export default function ContextPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                     {section.fields.map((field) => (
                       <div key={field.key} className="space-y-1.5">
-                        <Label className="text-xs">{field.label}</Label>
+                        <div className="flex items-center gap-1.5">
+                          <Label className="text-xs">{field.label}</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <HelpCircle className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-[240px] text-xs">
+                              {field.tip}
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
                         <Input
                           type="number"
                           value={form[field.key] as number}
