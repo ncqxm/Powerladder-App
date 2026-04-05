@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, ChevronLeft, Building2, Briefcase, BarChart3, DollarSign, Package, Target } from "lucide-react";
+import { ArrowRight, ChevronLeft, Building2, Briefcase, BarChart3, DollarSign, Package, Target, HelpCircle } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
