@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, ChevronLeft, Building2, Briefcase, BarChart3, DollarSign, Package, Target } from "lucide-react";
+import { ArrowRight, ChevronLeft, Building2, Briefcase, BarChart3, DollarSign, Package, Target, HelpCircle } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
@@ -65,8 +66,8 @@ const inputSections = [
     title: "Market Data",
     emoji: "📊",
     fields: [
-      { key: "marketSize" as const, label: "Market Size (USD)", min: 0 },
-      { key: "customerBase" as const, label: "Customer Base", min: 0 },
+      { key: "marketSize" as const, label: "Market Size (USD)", min: 0, tip: "มูลค่ารวมของตลาดที่ธุรกิจของคุณแข่งขันอยู่ (Total Addressable Market)" },
+      { key: "customerBase" as const, label: "Customer Base", min: 0, tip: "จำนวนลูกค้าที่ซื้อสินค้าหรือบริการของคุณในปัจจุบัน" },
     ],
   },
   {
@@ -74,10 +75,10 @@ const inputSections = [
     title: "Financial Data",
     emoji: "💰",
     fields: [
-      { key: "revenue" as const, label: "Monthly Revenue (USD)", min: 0 },
-      { key: "cashOnHand" as const, label: "Cash on Hand (USD)", min: 0 },
-      { key: "accountsReceivable" as const, label: "Accounts Receivable (USD)", min: 0 },
-      { key: "currentLiabilities" as const, label: "Current Liabilities (USD)", min: 1 },
+      { key: "revenue" as const, label: "Monthly Revenue (USD)", min: 0, tip: "รายได้ต่อเดือนของธุรกิจ ก่อนหักค่าใช้จ่าย" },
+      { key: "cashOnHand" as const, label: "Cash on Hand (USD)", min: 0, tip: "เงินสดที่มีอยู่ในบัญชี พร้อมใช้จ่ายได้ทันที" },
+      { key: "accountsReceivable" as const, label: "Accounts Receivable (USD)", min: 0, tip: "เงินที่ลูกค้าค้างชำระ ใช้คำนวณ Quick Ratio" },
+      { key: "currentLiabilities" as const, label: "Current Liabilities (USD)", min: 1, tip: "หนี้สินระยะสั้นที่ต้องชำระภายใน 1 ปี เช่น ค่าเช่า เจ้าหนี้การค้า" },
     ],
   },
   {
@@ -85,9 +86,9 @@ const inputSections = [
     title: "Product & Inventory",
     emoji: "📈",
     fields: [
-      { key: "inventoryUnits" as const, label: "Inventory to Purchase (Units)", min: 0 },
-      { key: "unitCost" as const, label: "Unit Cost (USD)", min: 0 },
-      { key: "salesVelocity" as const, label: "ML Forecast (Units Needed)", min: 0 },
+      { key: "inventoryUnits" as const, label: "Inventory to Purchase (Units)", min: 0, tip: "จำนวนหน่วยสินค้าที่ต้องการสั่งซื้อเพิ่ม" },
+      { key: "unitCost" as const, label: "Unit Cost (USD)", min: 0, tip: "ต้นทุนต่อหน่วยของสินค้า รวมค่าผลิตและค่าขนส่ง" },
+      { key: "salesVelocity" as const, label: "ML Forecast (Units Needed)", min: 0, tip: "จำนวนหน่วยที่คาดว่าจะขายได้ จาก ML หรือใช้ยอดขายเฉลี่ยต่อเดือน" },
     ],
   },
   {
@@ -95,7 +96,7 @@ const inputSections = [
     title: "Business Goals",
     emoji: "🎯",
     fields: [
-      { key: "growthTarget" as const, label: "Growth Target (%)", min: 0 },
+      { key: "growthTarget" as const, label: "Growth Target (%)", min: 0, tip: "เปอร์เซ็นต์การเติบโตที่ต้องการ เช่น 20% หมายถึงต้องการโตขึ้น 20%" },
     ],
   },
 ];
@@ -266,7 +267,17 @@ export default function ContextPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                     {section.fields.map((field) => (
                       <div key={field.key} className="space-y-1.5">
-                        <Label className="text-xs">{field.label}</Label>
+                        <div className="flex items-center gap-1.5">
+                          <Label className="text-xs">{field.label}</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <HelpCircle className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-[240px] text-xs">
+                              {field.tip}
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
                         <Input
                           type="number"
                           value={form[field.key] as number}

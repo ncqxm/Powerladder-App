@@ -14,6 +14,7 @@ import PipelinePage from "./pages/PipelinePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import HelpPage from "./pages/HelpPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
               <Route path="/main" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/pipeline" element={<PipelinePage />} />
+              <Route path="/help" element={<HelpPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
