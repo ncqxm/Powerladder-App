@@ -331,7 +331,6 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      </section>
 
       {/* ──────── Animated Stats ──────── */}
       <section className="bg-card border-y border-border">
