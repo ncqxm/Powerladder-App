@@ -69,6 +69,39 @@ const demoData = {
   balance: 10.0,
 };
 
+const stats = [
+  { icon: Users, label: "ผู้ใช้งาน", value: 1200, suffix: "+", color: "text-primary" },
+  { icon: Target, label: "ความแม่นยำ AI", value: 94, suffix: "%", color: "text-emerald" },
+  { icon: Zap, label: "Business Play สร้างแล้ว", value: 3500, suffix: "+", color: "text-amber" },
+  { icon: BarChart3, label: "อุตสาหกรรมรองรับ", value: 12, suffix: "+", color: "text-primary" },
+];
+
+function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref as any, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = value;
+    const stepTime = Math.max(duration * 1000 / end, 10);
+    const increment = Math.max(Math.floor(end / (duration * 1000 / 16)), 1);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, value, duration]);
+
+  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
+}
+
 export default function WelcomePage() {
   const { user } = useAuth();
   const navigate = useNavigate();
