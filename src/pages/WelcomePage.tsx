@@ -331,6 +331,36 @@ export default function WelcomePage() {
         </div>
       </section>
 
+      </section>
+
+      {/* ──────── Animated Stats ──────── */}
+      <section className="bg-card border-y border-border">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Trusted by Businesses</span>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">ตัวเลขพูดแทนเรา</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="card-glass text-center"
+              >
+                <s.icon className={`h-8 w-8 ${s.color} mx-auto mb-3`} />
+                <div className={`text-3xl md:text-4xl font-black ${s.color}`}>
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
+                </div>
+                <div className="text-sm text-muted-foreground font-medium mt-1">{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ──────── Demo Results Screenshot ──────── */}
       <section id="case-study" className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
