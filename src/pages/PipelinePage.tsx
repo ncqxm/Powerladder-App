@@ -1,28 +1,58 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FileUp, Scissors, Search, ArrowRight, ChevronLeft } from "lucide-react";
+import { Factory, ClipboardList, Brain, BarChart3, ArrowRight, ChevronLeft, ArrowDown } from "lucide-react";
 
 const steps = [
   {
-    icon: FileUp,
+    icon: Factory,
     step: "01",
-    title: "Strategic Knowledge Ingestion",
-    description: "Upload specific Playbooks and Reports to fuel the AI's core logic. PDFs are parsed and stored securely.",
+    title: "เลือกอุตสาหกรรม",
+    subtitle: "Select Industry",
+    description: "เลือกประเภทธุรกิจของคุณ เช่น Retail หรือ Wellness เพื่อให้ AI ปรับคำแนะนำเฉพาะทาง",
+    color: "from-blue-500/20 to-blue-600/20",
+    borderColor: "border-blue-500/30",
   },
   {
-    icon: Scissors,
+    icon: ClipboardList,
     step: "02",
-    title: "Knowledge Segmenting",
-    description: "Process documents into optimized strategic units (400-word chunks) for precise Golden Equilibrium analysis.",
+    title: "กรอกข้อมูลธุรกิจ",
+    subtitle: "Input Business Data",
+    description: "กรอกข้อมูล Financial & Operational เช่น Revenue, Inventory, Cash on Hand, Accounts Receivable",
+    color: "from-emerald-500/20 to-emerald-600/20",
+    borderColor: "border-emerald-500/30",
   },
   {
-    icon: Search,
+    icon: Brain,
     step: "03",
-    title: "Search Engine Setup",
-    description: "Initialize real-time strategy retrieval with vector search for context-aware AI responses.",
+    title: "AI วิเคราะห์ผล",
+    subtitle: "AI Analysis",
+    description: "ระบบคำนวณ Opportunity Score, Financial Readiness Score และ Sweet Spot Score ด้วย Golden Equilibrium Framework",
+    color: "from-purple-500/20 to-purple-600/20",
+    borderColor: "border-purple-500/30",
+  },
+  {
+    icon: BarChart3,
+    step: "04",
+    title: "ได้ผลลัพธ์ & คำแนะนำ",
+    subtitle: "Results & Recommendations",
+    description: "รับ Business Play Classification (🛡️🧠🦄🦕) พร้อม Action Plan, จุดแข็ง, จุดอ่อน และ Next Steps",
+    color: "from-amber-500/20 to-amber-600/20",
+    borderColor: "border-amber-500/30",
   },
 ];
+
+const flowParticle = {
+  animate: {
+    y: [0, 8, 0],
+    opacity: [0.3, 1, 0.3],
+  },
+  transition: {
+    duration: 1.5,
+    repeat: Infinity,
+    ease: "easeInOut" as const,
+  },
+};
 
 export default function PipelinePage() {
   const navigate = useNavigate();
@@ -38,15 +68,14 @@ export default function PipelinePage() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <span className="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
-              Technical Overview
+              Process Flow
             </span>
             <h1 className="text-3xl md:text-4xl font-black text-foreground mb-3">
-              How It Works: <span className="text-primary">RAG Pipeline</span>
+              ขั้นตอนการวิเคราะห์ <span className="text-primary">Business Play</span>
             </h1>
             <p className="text-muted-foreground leading-relaxed">
-              Retrieval-Augmented Generation grounds AI advice in your specific
-              Business Play Rules and Data Science Reports — eliminating hallucination
-              and providing strategies that respect your constraints.
+              เพียง 4 ขั้นตอน จากข้อมูลธุรกิจของคุณสู่คำแนะนำเชิงกลยุทธ์ที่แม่นยำ
+              ด้วย Golden Equilibrium Framework และ AI-Powered Analysis
             </p>
           </motion.div>
         </div>
@@ -54,26 +83,44 @@ export default function PipelinePage() {
 
       {/* Pipeline Steps */}
       <section className="container mx-auto px-4 py-12">
-        <h2 className="text-2xl font-black text-foreground mb-8">Pipeline Steps</h2>
-        <div className="space-y-4">
+        <h2 className="text-2xl font-black text-foreground mb-10 text-center">4 ขั้นตอนสู่กลยุทธ์ที่ใช่</h2>
+
+        <div className="max-w-xl mx-auto">
           {steps.map((step, i) => (
-            <motion.div
-              key={step.step}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="card-glass flex gap-5 items-start"
-            >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex flex-col items-center justify-center shrink-0">
-                <step.icon className="h-5 w-5 text-primary mb-0.5" />
-                <span className="text-[10px] font-black text-primary">{step.step}</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-foreground mb-1">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-              </div>
-            </motion.div>
+            <div key={step.step}>
+              {/* Step Card */}
+              <motion.div
+                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.5 }}
+                className={`card-glass border ${step.borderColor} bg-gradient-to-r ${step.color} relative`}
+              >
+                <div className="flex gap-4 items-start">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex flex-col items-center justify-center shrink-0">
+                    <step.icon className="h-5 w-5 text-primary mb-0.5" />
+                    <span className="text-[10px] font-black text-primary">{step.step}</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-foreground mb-0.5">{step.title}</h3>
+                    <p className="text-xs text-primary font-semibold mb-1.5">{step.subtitle}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Flow Arrow between steps */}
+              {i < steps.length - 1 && (
+                <div className="flex justify-center py-3">
+                  <motion.div
+                    animate={flowParticle.animate}
+                    transition={{ ...flowParticle.transition, delay: i * 0.3 }}
+                  >
+                    <ArrowDown className="h-6 w-6 text-primary/60" />
+                  </motion.div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </section>
@@ -125,14 +172,14 @@ export default function PipelinePage() {
       {/* CTA */}
       <section className="container mx-auto px-4 py-12 pb-16">
         <div className="card-glass text-center py-10 px-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-          <h2 className="text-2xl font-black text-foreground mb-2">Ready to try it?</h2>
-          <p className="text-muted-foreground mb-5">Experience the power of AI-driven consulting.</p>
+          <h2 className="text-2xl font-black text-foreground mb-2">พร้อมเริ่มวิเคราะห์แล้วหรือยัง?</h2>
+          <p className="text-muted-foreground mb-5">ลองใช้ AI-Driven Consulting เพื่อค้นหากลยุทธ์ที่เหมาะกับธุรกิจของคุณ</p>
           <Button
             onClick={() => navigate("/context")}
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
             size="lg"
           >
-            Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            เริ่มวิเคราะห์ <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </section>

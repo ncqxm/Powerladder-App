@@ -12,22 +12,36 @@ const glossary = [
     term: "Opportunity Score",
     icon: "📊",
     definition:
-      "คะแนนที่วัดความสมดุลระหว่าง Demand (ความต้องการของตลาด) กับ Supply (สินค้าคงคลัง) ยิ่งสมดุลมาก คะแนนยิ่งสูง แสดงว่าธุรกิจมีโอกาสทำกำไรสูง",
+      "คะแนนที่วัดความสามารถในการตอบสนองความต้องการของตลาด โดยเปรียบเทียบ Supply (สินค้าคงคลัง) กับ Demand (ความต้องการ) ยิ่งสมดุลมาก คะแนนยิ่งสูง แสดงว่าธุรกิจมีโอกาสทำกำไรสูง",
     formula: "Demand-Supply Alignment = min(Inventory ÷ ML Forecast, 1) × 100",
   },
   {
     term: "Financial Readiness Score",
     icon: "💵",
     definition:
-      "คะแนนที่วัดความพร้อมทางการเงิน โดยดูจากสภาพคล่อง (Liquidity) และความสามารถในการรองรับค่าใช้จ่าย ยิ่งสูงยิ่งแข็งแกร่ง",
+      "คะแนนที่วัดความพร้อมทางการเงิน (Liquidity) โดยใช้ Quick Ratio เป็นตัวชี้วัดหลัก ดูจากสภาพคล่องและความสามารถในการรองรับค่าใช้จ่ายระยะสั้น ยิ่งสูงยิ่งแข็งแกร่ง",
     formula: "Quick Ratio = (Cash + AR) ÷ Current Liabilities → ปรับเป็นคะแนน 0-100",
   },
   {
     term: "Sweet Spot Score",
     icon: "🎯",
     definition:
-      "คะแนนรวมจาก Opportunity Score และ Financial Readiness Score ใช้ตัดสินว่าธุรกิจของคุณอยู่ในจุดสมดุลทองคำ (Golden Equilibrium) หรือไม่",
+      "คะแนนรวมจาก Opportunity Score และ Financial Readiness Score ใช้ตัดสินว่าธุรกิจของคุณอยู่ในจุดสมดุลทองคำ (Golden Equilibrium) หรือไม่ คะแนนยิ่งสูงยิ่งมีศักยภาพ",
     formula: "Sweet Spot = (Opportunity × 0.5) + (Financial × 0.5)",
+  },
+  {
+    term: "Quick Ratio",
+    icon: "⚡",
+    definition:
+      "สัดส่วนสภาพคล่องที่วัดความสามารถในการชำระหนี้ระยะสั้น ค่า > 1 หมายความว่าธุรกิจมีสินทรัพย์สภาพคล่องเพียงพอ ถือว่าปลอดภัย ค่า < 1 อาจเสี่ยงต่อปัญหาสภาพคล่อง",
+    formula: "Quick Ratio = (Cash on Hand + Accounts Receivable) ÷ Current Liabilities",
+  },
+  {
+    term: "Inventory Velocity",
+    icon: "🚀",
+    definition:
+      "ความเร็วในการขายสินค้าคงคลัง ยิ่งสูงแสดงว่าสินค้าหมุนเวียนเร็ว ลดความเสี่ยงจากสต็อกค้าง เป็นตัวชี้วัดสำคัญสำหรับธุรกิจ Retail",
+    formula: "Inventory Velocity = Sales Velocity ÷ Inventory Units",
   },
 ];
 
