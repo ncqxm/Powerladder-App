@@ -6,6 +6,28 @@ Built with React + TypeScript + Supabase, powered by the **Golden Equilibrium Fr
 
 ---
 
+## Local Preview (Vite)
+
+Run the app locally with Vite:
+
+```bash
+npm install
+npm run dev -- --host 0.0.0.0 --port 4173
+```
+
+Then open:
+
+- http://localhost:4173
+
+To preview the production build:
+
+```bash
+npm run build
+npm run preview -- --host 0.0.0.0 --port 4173
+```
+
+---
+
 ## What Is This?
 
 The Powerladder App is a web application that guides business owners through a structured AI-driven analysis process. Users input key financial and operational data, and the app returns a **Business Play** — a proprietary strategic classification that tells them exactly where they stand and what to do next.
