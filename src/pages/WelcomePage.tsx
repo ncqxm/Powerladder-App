@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
-import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown, UserPlus } from "lucide-react";
+import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown, UserPlus, Users, Target, Zap } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 import camelCalculated from "@/assets/camel-calculated.jpg";
@@ -67,6 +68,39 @@ const demoData = {
   qr: 1.3,
   balance: 10.0,
 };
+
+const stats = [
+  { icon: Users, label: "ผู้ใช้งาน", value: 1200, suffix: "+", color: "text-primary" },
+  { icon: Target, label: "ความแม่นยำ AI", value: 94, suffix: "%", color: "text-emerald" },
+  { icon: Zap, label: "Business Play สร้างแล้ว", value: 3500, suffix: "+", color: "text-amber" },
+  { icon: BarChart3, label: "อุตสาหกรรมรองรับ", value: 12, suffix: "+", color: "text-primary" },
+];
+
+function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref as any, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = value;
+    const stepTime = Math.max(duration * 1000 / end, 10);
+    const increment = Math.max(Math.floor(end / (duration * 1000 / 16)), 1);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, value, duration]);
+
+  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
+}
 
 export default function WelcomePage() {
   const { user } = useAuth();
@@ -294,6 +328,35 @@ export default function WelcomePage() {
               </li>
             </ul>
           </motion.div>
+        </div>
+      </section>
+
+
+      {/* ──────── Animated Stats ──────── */}
+      <section className="bg-card border-y border-border">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Trusted by Businesses</span>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">ตัวเลขพูดแทนเรา</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="card-glass text-center"
+              >
+                <s.icon className={`h-8 w-8 ${s.color} mx-auto mb-3`} />
+                <div className={`text-3xl md:text-4xl font-black ${s.color}`}>
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
+                </div>
+                <div className="text-sm text-muted-foreground font-medium mt-1">{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
