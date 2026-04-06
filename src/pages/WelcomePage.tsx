@@ -226,6 +226,77 @@ export default function WelcomePage() {
         </div>
       </section>
 
+      {/* ──────── Before vs After ──────── */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">Transformation</span>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mt-2">
+            ก่อน vs หลังใช้ Business Play
+          </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            ดูว่าธุรกิจเปลี่ยนไปอย่างไรเมื่อมี <strong className="text-foreground">Golden Equilibrium Framework</strong> เป็นเข็มทิศ
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {/* Before */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="card-glass border-destructive/30 bg-destructive/5"
+          >
+            <h3 className="font-bold text-destructive mb-4 text-lg">❌ ก่อนใช้ Business Play</h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <span className="text-destructive mt-0.5">✗</span>
+                <span>ไม่รู้ว่าจะสั่งสินค้าเท่าไหร่ — สั่งตามสัญชาตญาณ</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-destructive mt-0.5">✗</span>
+                <span>ความเสี่ยง <strong className="text-foreground">40% cash shortfall</strong> ทุกไตรมาส</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-destructive mt-0.5">✗</span>
+                <span>สั่งซื้อเกินหรือขาดตลอด — สูญเสียโอกาสและทุน</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-destructive mt-0.5">✗</span>
+                <span>ไม่มี strategy ที่วัดผลได้ — ตัดสินใจแบบไร้ข้อมูล</span>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* After */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="card-glass border-emerald/30 bg-emerald/5"
+          >
+            <h3 className="font-bold text-emerald mb-4 text-lg">✅ หลังใช้ Business Play</h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald mt-0.5">✓</span>
+                <span>กรอกข้อมูล → <strong className="text-foreground">ได้คำแนะนำชัดเจน</strong>ทันที</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald mt-0.5">✓</span>
+                <span>Risk ลดลง <strong className="text-foreground">60%</strong> ด้วย Quick Ratio Analysis</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald mt-0.5">✓</span>
+                <span><strong className="text-foreground">Optimal inventory level</strong> ชัดเจนจาก ML Forecast</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald mt-0.5">✓</span>
+                <span><strong className="text-foreground">Golden Equilibrium Framework</strong> — กลยุทธ์ที่วัดได้</span>
+              </li>
+            </ul>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ──────── Demo Results Screenshot ──────── */}
       <section id="case-study" className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
