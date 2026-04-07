@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { ArrowRight, Compass, Shield, TrendingUp, Sparkles, BarChart3, Brain, ChevronDown, UserPlus, Users, Target, Zap } from "lucide-react";
+import ThreeTierCTA from "@/components/ThreeTierCTA";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -484,6 +485,9 @@ export default function WelcomePage() {
           </div>
         </div>
       </section>
+
+      {/* ──────── Three-Tier CTA ──────── */}
+      <ThreeTierCTA />
 
       {/* ──────── CTA ──────── */}
       <section id="cta" className="container mx-auto px-4 py-16">

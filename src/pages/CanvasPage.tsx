@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import FlipCard from "@/components/FlipCard";
+import ThreeTierCTA from "@/components/ThreeTierCTA";
 import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis, RadarChart, PolarGrid, PolarRadiusAxis, Radar, Legend } from "recharts";
 
 import camelSki from "@/assets/camel-handle-ski.jpg";
@@ -247,6 +248,9 @@ export default function CanvasPage() {
           ))}
         </div>
       </section>
+
+      {/* ──────── Three-Tier CTA ──────── */}
+      <ThreeTierCTA />
 
       {/* CTA */}
       <section className="container mx-auto px-4 py-12 pb-16">
