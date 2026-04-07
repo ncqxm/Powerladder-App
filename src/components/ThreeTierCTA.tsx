@@ -323,6 +323,23 @@ export default function ThreeTierCTA() {
             </div>
           </div>
         </motion.div>
+
+        {/* ──────── FAQ ──────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-foreground text-center mb-8">
+            คำถามที่พบบ่อย
+          </h3>
+          <div className="max-w-3xl mx-auto space-y-3">
+            {faqItems.map((faq, i) => (
+              <FaqItem key={i} question={faq.q} answer={faq.a} />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
