@@ -237,6 +237,61 @@ export default function ThreeTierCTA() {
           </div>
         </motion.div>
 
+        {/* ──────── Why Power Ladder? ──────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-foreground text-center mb-3">
+            ทำไมต้อง Power Ladder?
+          </h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
+            {[
+              { icon: "❄️", title: "Snowflake Partner", desc: "พันธมิตรรับรอง" },
+              { icon: "🤖", title: "ขับเคลื่อนด้วย AI", desc: "Claude + Snowflake" },
+              { icon: "🇹🇭", title: "เข้าใจตลาดไทย", desc: "ทีมงานคนไทย" },
+              { icon: "🏆", title: "Golden Equilibrium", desc: "กรอบวิเคราะห์เฉพาะ" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="rounded-2xl border border-border bg-background p-6 text-center hover:border-primary/40 transition-colors"
+              >
+                <div className="text-3xl mb-3">{item.icon}</div>
+                <h4 className="font-bold text-foreground text-sm">{item.title}</h4>
+                <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Value Props */}
+          <div className="mt-8 rounded-2xl bg-secondary border border-border p-8 text-center">
+            <p className="text-sm font-semibold text-primary mb-4">ความคุ้มค่าที่คุณจะได้รับ</p>
+            <div className="grid grid-cols-3 gap-6">
+              <div>
+                <div className="text-3xl md:text-4xl font-black text-foreground">0.01%</div>
+                <p className="text-xs text-muted-foreground mt-1">ค่า Workshop เทียบกับรายได้ต่อปี</p>
+                <p className="text-[10px] text-muted-foreground/60">(Tier B: 25,000 / 200M)</p>
+              </div>
+              <div>
+                <div className="text-3xl md:text-4xl font-black text-foreground">2-5%</div>
+                <p className="text-xs text-muted-foreground mt-1">ลดต้นทุนจากการจัดการ สต็อกอัจฉริยะ</p>
+                <p className="text-[10px] text-muted-foreground/60">ค้าปลีก & ค้าส่ง</p>
+              </div>
+              <div>
+                <div className="text-3xl md:text-4xl font-black text-foreground">10-50x</div>
+                <p className="text-xs text-muted-foreground mt-1">ผลตอบแทนจากการลงทุน Snowflake</p>
+                <p className="text-[10px] text-muted-foreground/60">ภายในปีแรก</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Feedback Credit Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
