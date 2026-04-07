@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus } from "lucide-react";
+import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type CellValue = boolean | string;
