@@ -1,6 +1,29 @@
 import { motion } from "framer-motion";
-import { Github, GraduationCap, Building2, Check, ArrowRight, Star } from "lucide-react";
+import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+type CellValue = boolean | string;
+
+const comparisonRows: { feature: string; tier1: CellValue; tier2: CellValue; tier3: CellValue }[] = [
+  { feature: "คะแนน Golden Equilibrium", tier1: true, tier2: true, tier3: true },
+  { feature: "Magical Creature 9 อุตสาหกรรม", tier1: true, tier2: true, tier3: true },
+  { feature: "คำแนะนำกลยุทธ์จาก AI", tier1: true, tier2: true, tier3: true },
+  { feature: "สิทธิ์รับ Feedback Credit", tier1: true, tier2: false, tier3: false },
+  { feature: "Workshop เต็มวัน (Onsite)", tier1: false, tier2: true, tier3: true },
+  { feature: "วิเคราะห์ข้อมูลเฉพาะธุรกิจ", tier1: false, tier2: true, tier3: true },
+  { feature: "เปรียบเทียบคู่แข่ง", tier1: "เบื้องต้น", tier2: "เชิงลึก", tier3: "ระดับองค์กร" },
+  { feature: "ติดตั้ง Snowflake", tier1: false, tier2: "สาธิตเท่านั้น", tier3: true },
+  { feature: "Dashboard และรายงานเฉพาะ", tier1: false, tier2: false, tier3: true },
+  { feature: "บัญชี Snowflake ภายใต้ Power Ladder", tier1: false, tier2: false, tier3: true },
+  { feature: "ผู้ดูแลบัญชีเฉพาะ", tier1: false, tier2: false, tier3: true },
+  { feature: "ระยะเวลาอัพพอร์ต", tier1: "ชุมชน", tier2: "อีเมล 30 วัน", tier3: "4 เดือน + ต่อเนื่อง" },
+];
+
+function renderCell(value: CellValue) {
+  if (value === true) return <Check className="h-4 w-4 text-primary mx-auto" />;
+  if (value === false) return <Minus className="h-4 w-4 text-muted-foreground/40 mx-auto" />;
+  return <span className="text-xs text-muted-foreground">{value}</span>;
+}
 
 const tiers = [
   {
@@ -170,6 +193,49 @@ export default function ThreeTierCTA() {
             </motion.div>
           ))}
         </div>
+
+        {/* ──────── Feature Comparison Table ──────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-foreground text-center mb-8">
+            เปรียบเทียบแพ็กเกจ
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-4 px-4 text-muted-foreground font-medium w-[40%]">คุณสมบัติ</th>
+                  <th className="text-center py-4 px-4 font-bold text-foreground">
+                    <div>ขั้นที่ 1</div>
+                    <div className="text-xs text-muted-foreground font-normal">ฟรี</div>
+                  </th>
+                  <th className="text-center py-4 px-4 font-bold text-primary">
+                    <div>ขั้นที่ 2</div>
+                    <div className="text-xs text-muted-foreground font-normal">25,000 บาท</div>
+                  </th>
+                  <th className="text-center py-4 px-4 font-bold text-amber">
+                    <div>ขั้นที่ 3</div>
+                    <div className="text-xs text-muted-foreground font-normal">350,000 บาท</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row, i) => (
+                  <tr key={i} className="border-b border-border/50 hover:bg-secondary/50 transition-colors">
+                    <td className="py-3.5 px-4 text-muted-foreground">{row.feature}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier1)}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier2)}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier3)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
 
         {/* Feedback Credit Banner */}
         <motion.div
