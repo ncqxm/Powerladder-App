@@ -171,6 +171,49 @@ export default function ThreeTierCTA() {
           ))}
         </div>
 
+        {/* ──────── Feature Comparison Table ──────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-foreground text-center mb-8">
+            เปรียบเทียบแพ็กเกจ
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-4 px-4 text-muted-foreground font-medium w-[40%]">คุณสมบัติ</th>
+                  <th className="text-center py-4 px-4 font-bold text-foreground">
+                    <div>ขั้นที่ 1</div>
+                    <div className="text-xs text-muted-foreground font-normal">ฟรี</div>
+                  </th>
+                  <th className="text-center py-4 px-4 font-bold text-primary">
+                    <div>ขั้นที่ 2</div>
+                    <div className="text-xs text-muted-foreground font-normal">25,000 บาท</div>
+                  </th>
+                  <th className="text-center py-4 px-4 font-bold text-amber">
+                    <div>ขั้นที่ 3</div>
+                    <div className="text-xs text-muted-foreground font-normal">350,000 บาท</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row, i) => (
+                  <tr key={i} className="border-b border-border/50 hover:bg-secondary/50 transition-colors">
+                    <td className="py-3.5 px-4 text-muted-foreground">{row.feature}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier1)}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier2)}</td>
+                    <td className="py-3.5 px-4 text-center">{renderCell(row.tier3)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
         {/* Feedback Credit Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
