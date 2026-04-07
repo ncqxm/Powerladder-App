@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus } from "lucide-react";
+import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type CellValue = boolean | string;
@@ -23,6 +24,34 @@ function renderCell(value: CellValue) {
   if (value === true) return <Check className="h-4 w-4 text-primary mx-auto" />;
   if (value === false) return <Minus className="h-4 w-4 text-muted-foreground/40 mx-auto" />;
   return <span className="text-xs text-muted-foreground">{value}</span>;
+}
+
+const faqItems = [
+  { q: "Business Play Plugin คืออะไร?", a: "เครื่องมือวิเคราะห์กลยุทธ์ธุรกิจฟรีที่ใช้ Golden Equilibrium Framework ในการให้คะแนน Opportunity Score และ Financial Readiness Score จากนั้นจัดกลุ่มธุรกิจของคุณเป็น 1 ใน 9 Magical Creatures พร้อมคำแนะนำกลยุทธ์จาก AI" },
+  { q: "Feedback Credit ใช้งานอย่างไร?", a: "ใช้ Plugin ฟรีอย่างน้อย 7 วัน แล้วส่ง Feedback ให้เรา จะได้รับเครดิตส่วนลด 3,500 บาทสำหรับ Workshop หรือ 17,500 บาทสำหรับค่า Snowflake — เครดิตใช้ได้ภายใน 90 วัน สิทธิ์ต่อ 1 องค์กร ไม่สามารถโอนได้" },
+  { q: "Workshop มีเนื้อหาอะไรบ้าง?", a: "Workshop เต็มวัน Onsite ครอบคลุมการให้คะแนน Golden Equilibrium กับข้อมูลจริงของธุรกิจคุณ วิเคราะห์คู่แข่ง วางแผนกลยุทธ์ที่ใช้ได้จริง สาธิต Snowflake แบบ Hands-on พร้อมใบรับรองและอัพพอร์ตอีเมล 30 วัน" },
+  { q: "เครดิต Snowflake ใน Step 3 ใช้ยังไง?", a: "Step 3 รวมการติดตั้งและย้ายข้อมูลสู่ Snowflake พร้อมบัญชีภายใต้การดูแลของ Power Ladder ค่าบริการ Snowflake เริ่มต้น 15,000 บาท/เดือน สามารถใช้ Feedback Credit ลดได้ 17,500 บาท ระยะเวลา 4 เดือน" },
+  { q: "เหมาะกับธุรกิจขนาดไหน?", a: "ออกแบบมาสำหรับ SME ค้าปลีกและค้าส่งไทย โดยเฉพาะธุรกิจที่มีรายได้ต่อปี 30-500 ล้านบาท ทั้ง 3 ขั้นตอนปรับให้เหมาะกับขนาดธุรกิจที่แตกต่างกัน" },
+];
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-xl border border-border bg-background overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-secondary/50 transition-colors"
+      >
+        <span className="font-semibold text-sm text-foreground">{question}</span>
+        <ChevronDown className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
 }
 
 const tiers = [
@@ -321,6 +350,23 @@ export default function ThreeTierCTA() {
               <div className="text-xs text-muted-foreground">ค่า Snowflake</div>
               <div className="text-2xl font-black text-amber">17,500 <span className="text-xs text-muted-foreground">บาท</span></div>
             </div>
+          </div>
+        </motion.div>
+
+        {/* ──────── FAQ ──────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-foreground text-center mb-8">
+            คำถามที่พบบ่อย
+          </h3>
+          <div className="max-w-3xl mx-auto space-y-3">
+            {faqItems.map((faq, i) => (
+              <FaqItem key={i} question={faq.q} answer={faq.a} />
+            ))}
           </div>
         </motion.div>
       </div>
