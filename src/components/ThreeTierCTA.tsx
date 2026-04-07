@@ -1,6 +1,29 @@
 import { motion } from "framer-motion";
-import { Github, GraduationCap, Building2, Check, ArrowRight, Star } from "lucide-react";
+import { Github, GraduationCap, Building2, Check, ArrowRight, Star, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+type CellValue = boolean | string;
+
+const comparisonRows: { feature: string; tier1: CellValue; tier2: CellValue; tier3: CellValue }[] = [
+  { feature: "คะแนน Golden Equilibrium", tier1: true, tier2: true, tier3: true },
+  { feature: "Magical Creature 9 อุตสาหกรรม", tier1: true, tier2: true, tier3: true },
+  { feature: "คำแนะนำกลยุทธ์จาก AI", tier1: true, tier2: true, tier3: true },
+  { feature: "สิทธิ์รับ Feedback Credit", tier1: true, tier2: false, tier3: false },
+  { feature: "Workshop เต็มวัน (Onsite)", tier1: false, tier2: true, tier3: true },
+  { feature: "วิเคราะห์ข้อมูลเฉพาะธุรกิจ", tier1: false, tier2: true, tier3: true },
+  { feature: "เปรียบเทียบคู่แข่ง", tier1: "เบื้องต้น", tier2: "เชิงลึก", tier3: "ระดับองค์กร" },
+  { feature: "ติดตั้ง Snowflake", tier1: false, tier2: "สาธิตเท่านั้น", tier3: true },
+  { feature: "Dashboard และรายงานเฉพาะ", tier1: false, tier2: false, tier3: true },
+  { feature: "บัญชี Snowflake ภายใต้ Power Ladder", tier1: false, tier2: false, tier3: true },
+  { feature: "ผู้ดูแลบัญชีเฉพาะ", tier1: false, tier2: false, tier3: true },
+  { feature: "ระยะเวลาอัพพอร์ต", tier1: "ชุมชน", tier2: "อีเมล 30 วัน", tier3: "4 เดือน + ต่อเนื่อง" },
+];
+
+function renderCell(value: CellValue) {
+  if (value === true) return <Check className="h-4 w-4 text-primary mx-auto" />;
+  if (value === false) return <Minus className="h-4 w-4 text-muted-foreground/40 mx-auto" />;
+  return <span className="text-xs text-muted-foreground">{value}</span>;
+}
 
 const tiers = [
   {
